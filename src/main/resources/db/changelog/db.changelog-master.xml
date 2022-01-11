@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.3.xsd">
+    <changeSet id="create-gl-comp-test" author="ajinkw" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="GL_COMP_TEST" schemaName="${liquibase.dbschema}"/>
+            </not>
+        </preConditions>
+        <createTable  tableName="GL_COMP_TEST" schemaName="${liquibase.dbschema}">
+            <column  name="COMP"  type="char(4)">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="BASE_CCY"  type="char(3)">
+                <constraints nullable="false" />
+            </column>
+            <column  name="CV_CCY"  type="char(3)"/>
+            <column  name="REVAL_AC"  type="char(7)">
+                <constraints nullable="false" />
+            </column>
+            <column  name="REVAL_CC"  type="char(7)">
+                <constraints nullable="false" />
+            </column>
+            <column name="WASH_AC" type="char(7)"/>
+            <column name="POSTING_DATE" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet  id="create-journal-test"  author="ajinkw" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="JOURNAL_TEST" schemaName="${liquibase.dbschema}"/>
+            </not>
+        </preConditions>
+        <createTable  tableName="JOURNAL_TEST" schemaName="${liquibase.dbschema}">
+            <column  name="ID"  type="bigint">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="COMP"  type="char(4)"/>
+            <column  name="AC"  type="char(7)"/>
+            <column  name="CC"  type="char(7)"/>
+            <column  name="CCY"  type="char(3)"/>
+            <column  name="CLIENT_JOB"  type="char(7)">
+                <constraints nullable="false" />
+            </column>
+            <column name="EFF_DATE" type="datetime"/>
+            <column name="ENTRY_DATE" type="datetime"/>
+            <column  name="SOURCE_CD"  type="char(10)"/>
+            <column  name="DR_CR_CODE"  type="char(2)"/>
+            <column  name="BASE_AMT"  type="decimal(12,4)">
+                <constraints nullable="false" />
+            </column>
+            <column  name="MX_AMT"  type="decimal(12,4)">
+                <constraints nullable="false" />
+            </column>
+            <column  name="CV_AMT"  type="decimal(12,4)">
+                <constraints nullable="false" />
+            </column>
+            <column  name="DESCR"  type="varchar(50)"/>
+            <column  name="EMP_ID"  type="char(5)"/>
+            <column  name="USERID"  type="char(8)"/>
+            <column  name="REF_NUMBER"  type="char(9)"/>
+            <column  name="GL_ENTRY_DATE"  type="datetime"/>
+            <column  name="FLAG"  type="char(1)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
