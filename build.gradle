@@ -18,6 +18,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'com.github.javafaker:javafaker:1.0.2'
     implementation 'org.liquibase:liquibase-core'
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.1.jre11'
     implementation 'io.micrometer:micrometer-registry-prometheus'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
