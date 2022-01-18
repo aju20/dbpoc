@@ -24,9 +24,9 @@ public class RandomDataGenerator {
 
     public static String getRandomAccount() { return fakeValueService.numerify("0######"); }
 
-    public static String getRandomCostCenter() { return fakeValueService.bothify("000?####", true); }
+    public static String getRandomCostCenter() { return fakeValueService.bothify("000?###", true); }
 
-    public static String getRandomClientJob() { return fakeValueService.regexify("[A-Z0-9]{4}[0-9]{4}"); }
+    public static String getRandomClientJob() { return fakeValueService.regexify("[A-Z0-9]{4}[0-9]{3}"); }
 
     public static String getRandomDRCRCode() { return fakeValueService.regexify("[DC]R"); }
 

@@ -105,7 +105,7 @@ public class SafireRepository {
                 stmt.setString(++i, companyId);
             }
             int result = stmt.executeUpdate();
-            LOG.info("Update Journal {} rows",result) ;
+            LOG.info("Delete Journal {} rows",result) ;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -114,9 +114,9 @@ public class SafireRepository {
     public void selectWithJoinAndAggregation(Collection<String> companyList) {
         String query = "SELECT \n" +
                 "J.COMP, AC, CC, CCY, CLIENT_JOB, BASE_CCY, CV_CCY, \n" +
-                "SUM(WHEN DR_CR_CODE = DR THEN MX_AMT ELSE -1 * MX_AMT END) AS \"TOTAL_MX\",\n" +
-                "SUM(WHEN DR_CR_CODE = DR THEN BASE_AMT ELSE -1 * CV_AMT END) AS \"TOTAL_BASE\",\n" +
-                "SUM(WHEN DR_CR_CODE = DR THEN BASE_AMT ELSE -1 * CV_AMT END) AS \"TOTAL_CV\"\n" +
+                "SUM(CASE WHEN DR_CR_CODE = 'DR' THEN MX_AMT ELSE -1 * MX_AMT END) AS \"TOTAL_MX\",\n" +
+                "SUM(CASE WHEN DR_CR_CODE = 'DR' THEN BASE_AMT ELSE -1 * BASE_AMT END) AS \"TOTAL_BASE\",\n" +
+                "SUM(CASE WHEN DR_CR_CODE = 'DR' THEN CV_AMT ELSE -1 * CV_AMT END) AS \"TOTAL_CV\"\n" +
                 "FROM JOURNAL_TEST J\n" +
                 "INNER JOIN GL_COMP_TEST G\n" +
                 "ON J.COMP = G.COMP\n" +

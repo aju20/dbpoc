@@ -50,11 +50,11 @@ public class PerformanceEvaluator {
         dataSize = 20000;
         for(int attempt = 0; attempt < maxAttempts; attempt++) {
             List<Journal> journals = new ArrayList<>();
+            int id = attempt * dataSize + 1;
             for(int i = 0; i < dataSize; i++) {
                 Journal j = Journal.builder().build();
-                int id = attempt * dataSize + 1;
-                j.setId((long)id);
                 j.setCompanyId(comapanyList[id % comapanyList.length].getId());
+                j.setId((long)id++);
                 journals.add(j);
             }
             Metrics.timer("journal.insert.bulk").record(() -> safireRepository.bulkJournalInsert(journals));

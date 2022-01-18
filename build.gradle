@@ -19,6 +19,8 @@ dependencies {
     implementation 'com.github.javafaker:javafaker:1.0.2'
     implementation 'org.liquibase:liquibase-core'
     implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.1.jre11'
+    implementation 'net.snowflake:snowflake-jdbc:3.13.13'
+    implementation 'org.liquibase.ext:liquibase-snowflake:4.7.0'
     implementation 'io.micrometer:micrometer-registry-prometheus'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
