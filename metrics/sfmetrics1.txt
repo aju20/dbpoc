@@ -1,0 +1,71 @@
+2022-01-19 07:11:53.019  INFO 408 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : company.insert
+Mean : 488.78594000000004 ms
+Max : 617.7329 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 452.984832 |
+| 0.6 | 452.984832 |
+| 0.7 | 486.539264 |
+| 0.8 | 486.539264 |
+| 0.9 | 620.756992 |
+| 1.0 | 620.756992 |
+
+2022-01-19 07:11:53.019  INFO 408 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.update
+Mean : 839.73406 ms
+Max : 999.5772 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 771.751936 |
+| 0.6 | 771.751936 |
+| 0.7 | 838.8608 |
+| 0.8 | 838.8608 |
+| 0.9 | 973.078528 |
+| 1.0 | 973.078528 |
+
+2022-01-19 07:11:53.033  INFO 408 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.select
+Mean : 488.18981999999994 ms
+Max : 761.9635 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 436.207616 |
+| 0.6 | 436.207616 |
+| 0.7 | 486.539264 |
+| 0.8 | 486.539264 |
+| 0.9 | 754.97472 |
+| 1.0 | 754.97472 |
+
+2022-01-19 07:11:53.040  INFO 408 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.transaction
+Mean : 1847.54822 ms
+Max : 1961.0364 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 1811.939328 |
+| 0.6 | 1811.939328 |
+| 0.7 | 1811.939328 |
+| 0.8 | 1811.939328 |
+| 0.9 | 1946.157056 |
+| 1.0 | 1946.157056 |
+
+2022-01-19 07:11:53.040  INFO 408 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.insert.bulk
+Mean : 2702.60926 ms
+Max : 3564.6601 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 2617.245696 |
+| 0.6 | 2617.245696 |
+| 0.7 | 3019.89888 |
+| 0.8 | 3019.89888 |
+| 0.9 | 3556.769792 |
+| 1.0 | 3556.769792 |
+
+2022-01-19 07:11:53.040  INFO 408 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.delete
+Mean : 722.51268 ms
+Max : 753.2113 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 704.643072 |
+| 0.6 | 704.643072 |
+| 0.7 | 738.197504 |
+| 0.8 | 738.197504 |
+| 0.9 | 738.197504 |
+| 1.0 | 738.197504 |

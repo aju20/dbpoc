@@ -1,0 +1,71 @@
+2022-01-19 08:34:25.521  INFO 3312 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : company.insert
+Mean : 3800.2030400000003 ms
+Max : 3919.9479 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 3758.096384 |
+| 0.6 | 3758.096384 |
+| 0.7 | 3758.096384 |
+| 0.8 | 3758.096384 |
+| 0.9 | 3892.314112 |
+| 1.0 | 3892.314112 |
+
+2022-01-19 08:34:25.521  INFO 3312 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.update
+Mean : 543.92572 ms
+Max : 613.1806 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 553.648128 |
+| 0.6 | 553.648128 |
+| 0.7 | 553.648128 |
+| 0.8 | 553.648128 |
+| 0.9 | 620.756992 |
+| 1.0 | 620.756992 |
+
+2022-01-19 08:34:25.521  INFO 3312 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.select
+Mean : 586.1216000000001 ms
+Max : 998.7412 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 469.762048 |
+| 0.6 | 469.762048 |
+| 0.7 | 503.31648 |
+| 0.8 | 503.31648 |
+| 0.9 | 989.855744 |
+| 1.0 | 989.855744 |
+
+2022-01-19 08:34:25.535  INFO 3312 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.transaction
+Mean : 419.88343999999995 ms
+Max : 502.8947 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 385.875968 |
+| 0.6 | 385.875968 |
+| 0.7 | 402.653184 |
+| 0.8 | 402.653184 |
+| 0.9 | 486.539264 |
+| 1.0 | 486.539264 |
+
+2022-01-19 08:34:25.537  INFO 3312 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.insert.bulk
+Mean : 73719.39254 ms
+Max : 76382.0756 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 73014.444032 |
+| 0.6 | 73014.444032 |
+| 0.7 | 73014.444032 |
+| 0.8 | 73014.444032 |
+| 0.9 | 73014.444032 |
+| 1.0 | 73014.444032 |
+
+2022-01-19 08:34:25.537  INFO 3312 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.delete
+Mean : 513.41272 ms
+Max : 527.8079 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 503.31648 |
+| 0.6 | 503.31648 |
+| 0.7 | 503.31648 |
+| 0.8 | 503.31648 |
+| 0.9 | 520.093696 |
+| 1.0 | 520.093696 |
