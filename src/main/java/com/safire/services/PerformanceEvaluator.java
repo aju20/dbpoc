@@ -13,10 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -32,34 +29,25 @@ public class PerformanceEvaluator {
     public void evaluatePerformance() {
         safireRepository.cleanTables();
 
-        int dataSize = 1000, maxAttempts = 5;
+        //test small insert set
+        int dataSize = 1000, maxAttempts = 5, jId = 1;
         HashSet<GLCompany> uniqueCompanies = new HashSet<>();
         for(int attempt = 0; attempt < maxAttempts; attempt++) {
-            HashSet<GLCompany> companies = new HashSet<>();
-            while(companies.size() < dataSize) {
-                GLCompany company = GLCompany.builder().build();
-                if(!uniqueCompanies.contains(company)) {
-                    companies.add(company);
-                }
-            }
+            HashSet<GLCompany> companies = getRandomCompanies(uniqueCompanies, dataSize);
             Metrics.timer("company.insert").record(() -> safireRepository.bulkCompanyInsert(companies));
             uniqueCompanies.addAll(companies);
         }
         GLCompany[] comapanyList = uniqueCompanies.toArray(new GLCompany[uniqueCompanies.size()]);
 
+        //test bulk insert set
         dataSize = 20000;
         for(int attempt = 0; attempt < maxAttempts; attempt++) {
-            List<Journal> journals = new ArrayList<>();
-            int id = attempt * dataSize + 1;
-            for(int i = 0; i < dataSize; i++) {
-                Journal j = Journal.builder().build();
-                j.setCompanyId(comapanyList[id % comapanyList.length].getId());
-                j.setId((long)id++);
-                journals.add(j);
-            }
+            List<Journal> journals = getRandomJournals(comapanyList, jId, dataSize);
+            jId += journals.size();
             Metrics.timer("journal.insert.bulk").record(() -> safireRepository.bulkJournalInsert(journals));
         }
 
+        //test update
         dataSize = 50;
         HashSet<String> excludeCompanies = new HashSet<>();
         for(int attempt = 0; attempt < maxAttempts; attempt++) {
@@ -68,6 +56,7 @@ public class PerformanceEvaluator {
             Metrics.timer("journal.update").record(() -> safireRepository.updateJournal(comapanyIds));
         }
 
+        //test select with aggregation and join
         excludeCompanies.clear();
         for(int attempt = 0; attempt < maxAttempts; attempt++) {
             List<String> comapanyIds = uniqueCompanies.stream().filter( c -> !excludeCompanies.contains(c.getId())).limit(dataSize).map(GLCompany::getId).collect(Collectors.toList());
@@ -75,13 +64,46 @@ public class PerformanceEvaluator {
             Metrics.timer("journal.select").record(() -> safireRepository.selectWithJoinAndAggregation(comapanyIds));
         }
 
+        //test delete
         excludeCompanies.clear();
         for(int attempt = 0; attempt < maxAttempts; attempt++) {
             List<String> comapanyIds = uniqueCompanies.stream().filter( c -> !excludeCompanies.contains(c.getId())).limit(dataSize).map(GLCompany::getId).collect(Collectors.toList());
             excludeCompanies.addAll(comapanyIds);
             Metrics.timer("journal.delete").record(() -> safireRepository.deleteJournal(comapanyIds));
         }
+
+        //test transactional behaviour
+        for(int attempt = 0; attempt < maxAttempts; attempt++) {
+            Set<GLCompany> glCompaniesSet = getRandomCompanies(uniqueCompanies, 10);
+            uniqueCompanies.addAll(glCompaniesSet);
+            GLCompany[] glCompaniesList = glCompaniesSet.toArray(new GLCompany[10]);
+            List<Journal> journals = getRandomJournals(glCompaniesList, jId, 10);
+            jId += journals.size();
+            Metrics.timer("journal.transaction").record(() -> safireRepository.updateTransactional(journals, glCompaniesSet));
+        }
         Metrics.printTimerMetrics();
+    }
+
+    private HashSet<GLCompany> getRandomCompanies(HashSet<GLCompany> notInCompanies, int companyCount) {
+        HashSet<GLCompany> companies = new HashSet<>();
+        while(companies.size() < companyCount) {
+            GLCompany company = GLCompany.builder().build();
+            if(!notInCompanies.contains(company)) {
+                companies.add(company);
+            }
+        }
+        return companies;
+    }
+
+    private List<Journal> getRandomJournals(GLCompany[] companies, int nextId, int journalCount) {
+        List<Journal> journals = new ArrayList<>();
+        for(int i = 0; i < journalCount; i++) {
+            Journal j = Journal.builder().build();
+            j.setCompanyId(companies[nextId % companies.length].getId());
+            j.setId((long)nextId++);
+            journals.add(j);
+        }
+        return journals;
     }
 
     private static class Metrics {
@@ -108,7 +130,7 @@ public class PerformanceEvaluator {
             registry.forEachMeter(m -> {
                 if(m instanceof Timer) {
                     Timer t = (Timer)m;
-                    LOG.info("Timer : {}\nMean : {} ms\nMax : {} mx\nAttempts : {}\n| Percentile | Value |\n{}", t.getId().getName(), t.mean(TimeUnit.MILLISECONDS), t.max(TimeUnit.MILLISECONDS), t.count(),
+                    LOG.info("Timer : {}\nMean : {} ms\nMax : {} ms\nAttempts : {}\n| Percentile | Value |\n{}", t.getId().getName(), t.mean(TimeUnit.MILLISECONDS), t.max(TimeUnit.MILLISECONDS), t.count(),
                             Arrays.stream(t.takeSnapshot().percentileValues()).map( p -> String.format("| %s | %s |\n", p.percentile(), p.value(TimeUnit.MILLISECONDS))).reduce(String::concat).get());
                 }
             });
