@@ -4,16 +4,17 @@ import com.safire.models.GLCompany;
 import com.safire.models.Journal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -143,6 +144,29 @@ public class SafireRepository {
         Collection<String> companyIds = companies.stream().map(GLCompany::getId).collect(Collectors.toList());
         updateJournal(companyIds);
         deleteJournal(companyIds);
+    }
+
+    public HashSet<GLCompany> getCompanies() {
+        String query = "SELECT COMP, BASE_CCY, CV_CCY, REVAL_AC, REVAL_CC, WASH_AC, POSTING_DATE FROM GL_COMP_TEST";
+        return jdbcTemplate.query(query, rs -> {
+            HashSet<GLCompany> result = new HashSet<GLCompany>();
+            while(rs.next()) {
+                 GLCompany comp = GLCompany.builder().id(rs.getString("COMP"))
+                         .baseCurrencyId(rs.getString("BASE_CCY"))
+                         .cvCurrencyId(rs.getString("CV_CCY"))
+                         .revalAccount(rs.getString("REVAL_AC"))
+                         .revalCostCenter(rs.getString("REVAL_CC"))
+                         .washAccount(rs.getString("WASH_AC"))
+                         .postingDate(rs.getTimestamp("POSTING_DATE"))
+                         .build();
+                result.add(comp);
+            }
+            return result;
+        });
+    }
+
+    public int getNextJournalId() {
+        return jdbcTemplate.queryForObject("SELECT MAX(ID) + 1 FROM JOURNAL_TEST", Integer.class);
     }
 
     public void cleanTables() {

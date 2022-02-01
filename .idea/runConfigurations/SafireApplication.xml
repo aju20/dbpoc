@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SafireApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+    <output_file path="C:\Users\Administrator\Desktop\azmetrics2.txt" />
+    <option name="MAIN_CLASS_NAME" value="com.safire.SafireApplication" />
+    <module name="DBPOC.main" />
+    <option name="VM_PARAMETERS" value="-Dliquibase.dbschema=SAFPOC -Dspring.profiles.active=snowflake" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.safire.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

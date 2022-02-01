@@ -1,0 +1,71 @@
+2022-01-28 10:52:49.478  INFO 7092 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : company.insert
+Mean : 544.28724 ms
+Max : 598.0843 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 520.093696 |
+| 0.6 | 520.093696 |
+| 0.7 | 587.20256 |
+| 0.8 | 587.20256 |
+| 0.9 | 587.20256 |
+| 1.0 | 587.20256 |
+
+2022-01-28 10:52:49.478  INFO 7092 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.update
+Mean : 14576.138860000001 ms
+Max : 15026.7073 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 13958.643712 |
+| 0.6 | 13958.643712 |
+| 0.7 | 14495.514624 |
+| 0.8 | 14495.514624 |
+| 0.9 | 14495.514624 |
+| 1.0 | 14495.514624 |
+
+2022-01-28 10:52:49.478  INFO 7092 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.select
+Mean : 817.95074 ms
+Max : 1345.7052 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 587.20256 |
+| 0.6 | 587.20256 |
+| 0.7 | 1124.073472 |
+| 0.8 | 1124.073472 |
+| 0.9 | 1392.508928 |
+| 1.0 | 1392.508928 |
+
+2022-01-28 10:52:49.478  INFO 7092 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.transaction
+Mean : 2345.42404 ms
+Max : 2432.6665 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 2281.701376 |
+| 0.6 | 2281.701376 |
+| 0.7 | 2415.919104 |
+| 0.8 | 2415.919104 |
+| 0.9 | 2415.919104 |
+| 1.0 | 2415.919104 |
+
+2022-01-28 10:52:49.478  INFO 7092 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.insert.bulk
+Mean : 4276.5077455 ms
+Max : 37959.5195 ms
+Attempts : 200
+| Percentile | Value |
+| 0.5 | 3892.314112 |
+| 0.6 | 3892.314112 |
+| 0.7 | 4026.53184 |
+| 0.8 | 4429.185024 |
+| 0.9 | 4697.62048 |
+| 1.0 | 38520.487936 |
+
+2022-01-28 10:52:49.478  INFO 7092 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.delete
+Mean : 13346.00264 ms
+Max : 14010.7845 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 12884.901888 |
+| 0.6 | 12884.901888 |
+| 0.7 | 13421.7728 |
+| 0.8 | 13421.7728 |
+| 0.9 | 13958.643712 |
+| 1.0 | 13958.643712 |

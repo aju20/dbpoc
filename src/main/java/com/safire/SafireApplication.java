@@ -9,6 +9,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class SafireApplication {
     public static void main (String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SafireApplication.class, args);
-        context.getBean(PerformanceEvaluator.class).evaluatePerformance();
+        context.getBean(PerformanceEvaluator.class).evaluatePerformanceWithExistingData();
     }
 }

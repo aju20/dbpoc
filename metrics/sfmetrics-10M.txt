@@ -1,0 +1,47 @@
+2022-02-01 10:46:55.565  INFO 5008 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.update
+Mean : 14589.03886 ms
+Max : 16049.149199 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 14495.514624 |
+| 0.6 | 14495.514624 |
+| 0.7 | 14495.514624 |
+| 0.8 | 14495.514624 |
+| 0.9 | 15569.256448 |
+| 1.0 | 15569.256448 |
+
+2022-02-01 10:46:55.565  INFO 5008 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.select
+Mean : 867.3150996 ms
+Max : 1214.022999 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 771.751936 |
+| 0.6 | 771.751936 |
+| 0.7 | 838.8608 |
+| 0.8 | 838.8608 |
+| 0.9 | 1241.513984 |
+| 1.0 | 1241.513984 |
+
+2022-02-01 10:46:55.565  INFO 5008 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.transaction
+Mean : 2955.8961 ms
+Max : 3724.266 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 2684.35456 |
+| 0.6 | 2684.35456 |
+| 0.7 | 3087.007744 |
+| 0.8 | 3087.007744 |
+| 0.9 | 3623.878656 |
+| 1.0 | 3623.878656 |
+
+2022-02-01 10:46:55.565  INFO 5008 --- [           main] c.safire.services.PerformanceEvaluator   : Timer : journal.delete
+Mean : 13056.576739799999 ms
+Max : 13342.7963 ms
+Attempts : 5
+| Percentile | Value |
+| 0.5 | 12884.901888 |
+| 0.6 | 12884.901888 |
+| 0.7 | 12884.901888 |
+| 0.8 | 12884.901888 |
+| 0.9 | 12884.901888 |
+| 1.0 | 12884.901888 |

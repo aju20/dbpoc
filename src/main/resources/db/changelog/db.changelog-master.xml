@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xmlns:pro="http://www.liquibase.org/xml/ns/pro"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.3.xsd">
     <changeSet id="create-gl-comp-test" author="ajinkw" runOnChange="true">
         <preConditions onFail="MARK_RAN">
@@ -68,4 +68,9 @@
             <column  name="FLAG"  type="char(1)"/>
         </createTable>
     </changeSet>
+    <!--<changeSet id="index-journal" author="ajinkw" runOnChange="true">
+        <createIndex tableName="JOURNAL_TEST" schemaName="${liquibase.dbschema}" indexName="journal-ncl-index">
+            <column name="COMP" />
+        </createIndex>
+    </changeSet>-->
 </databaseChangeLog>

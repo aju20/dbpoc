@@ -26,11 +26,11 @@ public class PerformanceEvaluator {
         safireRepository = sr;
     }
 
-    public void evaluatePerformance() {
+    public void evaluatePerformanceWithNewData() {
         safireRepository.cleanTables();
 
         //test small insert set
-        int dataSize = 1000, maxAttempts = 5, jId = 1;
+        int dataSize = 1990, maxAttempts = 5, jId = 1;
         HashSet<GLCompany> uniqueCompanies = new HashSet<>();
         for(int attempt = 0; attempt < maxAttempts; attempt++) {
             HashSet<GLCompany> companies = getRandomCompanies(uniqueCompanies, dataSize);
@@ -40,15 +40,28 @@ public class PerformanceEvaluator {
         GLCompany[] comapanyList = uniqueCompanies.toArray(new GLCompany[uniqueCompanies.size()]);
 
         //test bulk insert set
-        dataSize = 20000;
+        maxAttempts = 200;
+        dataSize = 50000;
         for(int attempt = 0; attempt < maxAttempts; attempt++) {
+            LOG.info("attempt : {}", attempt + 1);
             List<Journal> journals = getRandomJournals(comapanyList, jId, dataSize);
             jId += journals.size();
             Metrics.timer("journal.insert.bulk").record(() -> safireRepository.bulkJournalInsert(journals));
         }
 
         //test update
-        dataSize = 50;
+        maxAttempts = 5;
+        dataSize = 1;
+        runTransactionalScenarios(uniqueCompanies, dataSize, maxAttempts, jId);
+    }
+
+    public void evaluatePerformanceWithExistingData() {
+        HashSet<GLCompany> uniqueCompanies = safireRepository.getCompanies();
+        int jId = safireRepository.getNextJournalId();
+        runTransactionalScenarios(uniqueCompanies, 1, 5, jId);
+    }
+
+    private void runTransactionalScenarios(HashSet<GLCompany> uniqueCompanies, int dataSize, int maxAttempts, int jId) {
         HashSet<String> excludeCompanies = new HashSet<>();
         for(int attempt = 0; attempt < maxAttempts; attempt++) {
             List<String> comapanyIds = uniqueCompanies.stream().filter( c -> !excludeCompanies.contains(c.getId())).limit(dataSize).map(GLCompany::getId).collect(Collectors.toList());
@@ -115,7 +128,7 @@ public class PerformanceEvaluator {
                 @Override
                 public DistributionStatisticConfig configure(Meter.Id id, DistributionStatisticConfig config) {
                     return DistributionStatisticConfig.builder()
-                            .expiry(Duration.ofDays(24)).percentilesHistogram(true)
+                            .expiry(Duration.ofHours(24)).percentilesHistogram(true)
                             .build().merge(config);
                 }
             });
